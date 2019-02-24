@@ -33,7 +33,7 @@ angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
     }
     else if (x == '1')
     {
-      while (angle_dc > 1)
+      while (angle_dc > 0)
       {
         digitalWrite(motorCCW,0);
         digitalWrite(motorCW,HIGH);
@@ -46,7 +46,7 @@ angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
     }
     else if (x == '2')
     {
-      while(angle_dc < 24)
+      while(angle_dc < 23)
       {
         digitalWrite(motorCCW,HIGH);
         digitalWrite(motorCW,0);
@@ -60,4 +60,17 @@ angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
   
    }
 
+}
+
+void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char x = Serial.read();
+    if (x == '0')
+    {
+      digitalWrite(motorCW,0);
+      digitalWrite(motorCCW,0);
+    }
+    
+  }
 }
