@@ -1,13 +1,15 @@
-#define motorCW 6
-#define motorCCW 8
+
+
+#define solenoidVertical1 8
+#define solenoidVertical2 9
+#define solenoidHorizontal1 6
+#define solenoidHorizontal2 7
+#define motorSpeed 11
+#define motorCW 12
+#define motorCCW 13
 #define rotaryEncoderPin A0
 
 
-//#define left 3
-//#define right 4
-//#define horizontal_actuator_positive 9
-//#define horizontal_actuator_negative 10
-//#define horizontal_actuator_speed 11
 //#define ultrasonic_sensor_trig 3
 //#define ultrasonic_sensor_echo 5
 #define rotary_encoder A0 
@@ -18,11 +20,88 @@ void setup() {
   // put your setup code here, to run once:
  pinMode(motorCW,OUTPUT);
   pinMode(motorCCW,OUTPUT);
+  pinMode(motorSpeed, OUTPUT);
+  pinMode(solenoidVertical1, OUTPUT);
+  pinMode(solenoidVertical2, OUTPUT);
+  pinMode(solenoidHorizontal1, OUTPUT);
+  pinMode(solenoidHorizontal2, OUTPUT);  
    Serial.begin (9600);
-   
+   digitalWrite(solenoidVertical1,HIGH);
+   digitalWrite(solenoidHorizontal1,HIGH);
 
 }
 
+void loop() {
+    if (Serial.available()>0)
+  {
+    char x = Serial.read();
+  
+  
+    if (x == '0')
+    {
+      analogWrite(motorSpeed,0);
+      
+      
+      angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
+
+    }
+    else if (x == '1')
+    {
+      digitalWrite(solenoidHorizontal1,HIGH);       //Horizontals are fixed
+      analogWrite(motorSpeed,0);
+      delay(3000);
+      digitalWrite(solenoidHorizontal2,0);
+      digitalWrite(solenoidVertical1,0);
+      digitalWrite(solenoidVertical2,HIGH);
+        angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
+      Serial.println(angle_dc);
+      digitalWrite(motorCCW,0);
+      digitalWrite(motorCW,HIGH);
+      analogWrite(motorSpeed, 255);
+      delay(500);
+    }
+    else if (x == '2')
+    {
+      digitalWrite(solenoidVertical1,HIGH);       //Verticals are fixed
+      analogWrite(motorSpeed,0);
+      delay(3000);
+      digitalWrite(solenoidVertical2,0);
+      digitalWrite(solenoidHorizontal1,0);
+      digitalWrite(solenoidHorizontal2,HIGH);
+      digitalWrite(motorCCW,HIGH);
+      digitalWrite(motorCW,0);
+      analogWrite(motorSpeed, 255);
+      delay(500);
+
+        angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
+        Serial.println(angle_dc);
+
+//      digitalWrite(motorCCW,0);
+//      digitalWrite(motorCW,0);
+    
+    }
+    else if (x == 'x')
+    {
+      Serial.println("*BEWARE!! ROBOT IS FALLING IN 3 SECONDS*");
+      delay(3000);
+      analogWrite(motorSpeed,0);
+      digitalWrite(solenoidVertical1,0);       //Beware Robot will fall
+      digitalWrite(solenoidVertical2,HIGH);
+      digitalWrite(solenoidHorizontal1,0);
+      digitalWrite(solenoidHorizontal2,HIGH);
+      
+      
+      angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
+
+    }
+    
+    
+    
+  
+   }
+}
+
+/*
 void loop() {
   angle_dc = map(analogRead(rotaryEncoderPin),0,1024,0,25);
 
@@ -97,13 +176,19 @@ void move_left(void)
   // put your main code here, to run repeatedly:
         digitalWrite(motorCCW,HIGH);
         digitalWrite(motorCW,LOW);
+        analogWrite(motorSpeed, 125);
+        digitalWrite(solenoidVertical1, HIGH);
+        digitalWrite(solenoidVertical2, LOW);
+        
 }
 
 void motor_stop(void)
 {
     digitalWrite(motorCCW,0);
       digitalWrite(motorCW,0);
-
+    digitalWrite(solenoidVertical1, LOW);
+    digitalWrite(solenoidVertical2, HIGH);
+    
 }
 
 //vacuum_position(left,LOW);
@@ -137,4 +222,5 @@ void motor_stop(void)
 //    
 //  }
 //}
+*/
 

@@ -1,7 +1,7 @@
 #include <Servo.h> 
 
-int trigPin = 3;    // Trigger
-int echoPin = 5;    // Echo
+int trigPin = 5;    // Trigger
+int echoPin = 3;    // Echo
 long duration;  
 float cm, inches;
 float distance;
