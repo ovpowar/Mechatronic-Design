@@ -1,18 +1,28 @@
 
 
-#define solenoidVertical1 8
-#define solenoidVertical2 9
-#define solenoidHorizontal1 6
-#define solenoidHorizontal2 7
-#define motorSpeed 11
-#define motorCW 12
-#define motorCCW 13
-#define rotaryEncoderPin A0
+#define solenoidVertical1 3
+#define solenoidVertical2 2
+#define solenoidHorizontal1 4
+#define solenoidHorizontal2 1
+//#define motorSpeed 5    //1 Sends Cups Down
+//#define motorCW 6       //2 Sends Cups Up
+//#define motorCCW 7
+
+
+//X Actuator
+//#define motorSpeed 11     //1 sends it Towards Black
+//#define motorCW 12        //2 sends it Away from Black
+//#define motorCCW 13
+
+//Y Actuator
+#define motorSpeed 10     //1 sends it Towards Black
+#define motorCW 9        //2 sends it Away from Black
+#define motorCCW 8
+#define rotaryEncoderPin A1
 
 
 //#define ultrasonic_sensor_trig 3
 //#define ultrasonic_sensor_echo 5
-#define rotary_encoder A0 
 //#define time_based_on HIGH
 float angle_dc;
 

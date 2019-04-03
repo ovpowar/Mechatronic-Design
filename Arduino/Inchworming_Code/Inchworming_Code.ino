@@ -1,7 +1,5 @@
-#define solenoidVertical1 2
-#define solenoidVertical2 4
-#define solenoidHorizontal1 6
-#define solenoidHorizontal2 7
+#define solenoidVertical1 4
+#define solenoidHorizontal1 3
 #define XSpeed 11
 #define XCW 12
 #define XCCW 13
@@ -34,9 +32,7 @@ void setup() {
   pinMode(YSpeed, OUTPUT);
   
   pinMode(solenoidVertical1, OUTPUT);
-  pinMode(solenoidVertical2, OUTPUT);
   pinMode(solenoidHorizontal1, OUTPUT);
-  pinMode(solenoidHorizontal2, OUTPUT);  
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
    Serial.begin (9600);
@@ -127,9 +123,7 @@ void loop() {
       delay(3000);
       analogWrite(XSpeed,0);
       digitalWrite(solenoidVertical1,0);       //Beware Robot will fall
-      digitalWrite(solenoidVertical2,HIGH);
       digitalWrite(solenoidHorizontal1,0);
-      digitalWrite(solenoidHorizontal2,HIGH);
       
       
       xactuator_length = actuator_position_check(XLength);
@@ -147,9 +141,7 @@ int move_vertical_left(int cm)
   Serial.println("LOL");
       digitalWrite(solenoidHorizontal1,HIGH);       //Horizontals are fixed
       delay(3000);
-      digitalWrite(solenoidHorizontal2,0);
       digitalWrite(solenoidVertical1,0);
-      digitalWrite(solenoidVertical2,HIGH);
   while (xactuator_length < ACTUATOR_X_UPPER_LIMIT)
   {
       xactuator_length = actuator_position_check(XLength);
@@ -168,9 +160,7 @@ int move_vertical_top(int cm)
   Serial.println("LOL");
       digitalWrite(solenoidHorizontal1,HIGH);       //Horizontals are fixed
       delay(3000);
-      digitalWrite(solenoidHorizontal2,0);
       digitalWrite(solenoidVertical1,0);
-      digitalWrite(solenoidVertical2,HIGH);
   while (yactuator_length < ACTUATOR_Y_UPPER_LIMIT)
   {
       yactuator_length = actuator_position_check(YLength);
@@ -189,9 +179,7 @@ int move_vertical_bottom(int cm)
   Serial.println("LOL");
       digitalWrite(solenoidHorizontal1,HIGH);       //Horizontals are fixed
       delay(3000);
-      digitalWrite(solenoidHorizontal2,0);
       digitalWrite(solenoidVertical1,0);
-      digitalWrite(solenoidVertical2,HIGH);
   while (yactuator_length > ACTUATOR_Y_LOWER_LIMIT)
   {
       yactuator_length = actuator_position_check(YLength);
@@ -211,9 +199,7 @@ int move_horizontal_left(int cm)
 {
        digitalWrite(solenoidVertical1,HIGH);       //Verticals are fixed
       delay(3000);
-      digitalWrite(solenoidVertical2,0);
       digitalWrite(solenoidHorizontal1,0);
-      digitalWrite(solenoidHorizontal2,HIGH);
    
   if (cm >22 || cm == 0)
   {
@@ -258,9 +244,7 @@ int move_vertical_right(int cm)
       digitalWrite(solenoidHorizontal1,HIGH);       //Horizontals are fixed
       analogWrite(XSpeed,0);
       delay(3000);
-      digitalWrite(solenoidHorizontal2,0);
       digitalWrite(solenoidVertical1,0);
-      digitalWrite(solenoidVertical2,HIGH);
   while (xactuator_length > ACTUATOR_X_LOWER_LIMIT)
   {
       xactuator_length = actuator_position_check(XLength);
@@ -280,9 +264,7 @@ int move_horizontal_right(int cm)
         digitalWrite(solenoidVertical1,HIGH);       //Verticals are fixed
         analogWrite(XSpeed,0);
       delay(3000);
-      digitalWrite(solenoidVertical2,0);
       digitalWrite(solenoidHorizontal1,0);
-      digitalWrite(solenoidHorizontal2,HIGH);
     while (xactuator_length < ACTUATOR_X_UPPER_LIMIT)
     {
      xactuator_length = actuator_position_check(XLength);
